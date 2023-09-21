@@ -14,6 +14,7 @@ contract ACME is Initializable, ERC20Upgradeable, OwnableUpgradeable {
 
     function initialize(uint256 _initialSupply) public initializer {
         __Ownable_init();
+        __ERC20_init("ACME", "ACME");
         _mint(msg.sender, _initialSupply * 10 ** 18);
     }
 
