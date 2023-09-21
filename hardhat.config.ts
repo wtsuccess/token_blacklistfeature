@@ -1,6 +1,9 @@
 import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox";
+// import "@nomicfoundation/hardhat-toolbox"; //3.0.0 ^2.0.2
+import "@openzeppelin/hardhat-upgrades"; // ^2.2.1
+import "@nomicfoundation/hardhat-verify"; //^1.1.1
 import { config as dotenvConfig } from "dotenv";
+
 
 dotenvConfig();
 const { PRIVATE_KEY, POLYGONSCAN_API_KEY } = process.env;

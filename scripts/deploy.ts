@@ -1,11 +1,18 @@
-import { ethers } from "hardhat";
-import { ACME, ACME__factory } from "../typechain-types";
+import { ethers, upgrades } from "hardhat";
 
 async function main() {
-  const acmeFactory: ACME__factory = await ethers.getContractFactory("ACME");
-  const acme: ACME = await acmeFactory.deploy(100000000000);
-  await acme.deployed();
-  console.log("acme address", acme.address);
+  const acmeFactory = await ethers.getContractFactory("ACME");
+  const acme = await upgrades.deployProxy(
+    acmeFactory,
+    [
+      100000000000
+    ],
+    {
+      initializer: "initialize",
+    }
+  );
+  await acme.waitForDeployment();
+  console.log("acme address", await acme.getAddress());
 }
 
 // We recommend this pattern to be able to use async/await everywhere

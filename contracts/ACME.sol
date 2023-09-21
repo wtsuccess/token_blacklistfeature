@@ -1,16 +1,19 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
-contract ACME is ERC20, Ownable {
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+
+contract ACME is Initializable, ERC20Upgradeable, OwnableUpgradeable {
     event BlacklistSettled(address indexed user);
     event WhitelistSettled(address indexed user);
 
     mapping(address => bool) public isBlacklisted;
 
-    constructor(uint256 _initialSupply) ERC20("ACME Company", "ACME") {
+    function initialize(uint256 _initialSupply) public initializer {
+        __Ownable_init();
         _mint(msg.sender, _initialSupply * 10 ** 18);
     }
 
